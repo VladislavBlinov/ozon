@@ -459,16 +459,17 @@ class Ozon extends OzonClient
      *
      * @param array $sku Array of strings <int64> SKU товара, который продаётся со склада продавца (схемы FBS и rFBS).
      * Получите sku в ответе методов /v2/product/info и /v3/product/info/list.
-     * Максимальное количестов SKU в одном запросе — 500.
+     * Максимальное количество SKU в одном запросе — 500.
+     * @param int  $limit
      * @return mixed
      */
-    public function getStocksByWarehouseFbs(array $sku): mixed
+    public function getStocksByWarehouseFbs(array $sku, int $limit = 1000): mixed
     {
         return (
             new OzonData(
                 $this->postResponse(
-                    'v1/product/info/stocks-by-warehouse/fbs',
-                    compact('sku')
+                    'v2/product/info/stocks-by-warehouse/fbs',
+                    compact('sku', 'limit')
                 )
             )
         )->data;
