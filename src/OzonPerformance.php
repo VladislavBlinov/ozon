@@ -308,6 +308,23 @@ class OzonPerformance extends OzonPerformanceClient
         return $this->postResponseWithJson('api/client/statistics/orders/generate/json', $params);
     }
 
+/**
+     * Отчёт по заказам в оплате за заказ — все товары
+     *
+     * @param Carbon $From
+     * @param Carbon $To
+     * @return array
+     * @throws Exception
+     */
+    public function getAllSkuPromoOrders(Carbon $From, Carbon $To): array
+    {
+        $from = $this->formatDate($From, self::DT_FORMAT_DATE_TIME_TZ);
+        $to   = $this->formatDate($To, self::DT_FORMAT_DATE_TIME_TZ);
+
+        $params = $this->getNotNullParams(compact('from', 'to'));
+        return $this->postResponseWithJson('api/client/statistics/all_sku_promo/orders/generate/json', $params);
+    }
+
     public function getPromoOrdersReport(string $url, string $UUID)
     {
         $params = $this->getNotNullParams(compact('UUID'));
