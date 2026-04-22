@@ -322,7 +322,9 @@ class OzonPerformance extends OzonPerformanceClient
         $to   = $this->formatDate($To, self::DT_FORMAT_DATE_TIME_TZ);
 
         $params = $this->getNotNullParams(compact('from', 'to'));
-        return $this->postResponseWithJson('api/client/statistics/all_sku_promo/orders/generate/json', $params);
+        $response = $this->getResponse('api/client/statistics/all_sku_promo/orders/generate/json', $params);
+        
+        return (new OzonData($response))->data;
     }
 
     public function getPromoOrdersReport(string $url, string $UUID)
