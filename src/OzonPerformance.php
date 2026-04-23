@@ -326,9 +326,8 @@ class OzonPerformance extends OzonPerformanceClient
                 'to' => $to,
             ]
         ];
-        $response = $this->getResponse('api/client/statistics/all_sku_promo/orders/generate/json', $params);
         
-        return (new OzonData($response))->data;
+        return $this->postResponseWithJson('api/client/statistics/all_sku_promo/orders/generate/json', $params);
     }
 
     public function getPromoOrdersReport(string $url, string $UUID)
