@@ -316,17 +316,18 @@ class OzonPerformance extends OzonPerformanceClient
      * @return array
      * @throws Exception
      */
-    public function getAllSkuPromoOrders(Carbon $From, Carbon $To): array
+    public function getAllSkuPromoOrders(Carbon $From, Carbon $To): mixed
     {
         $from = $this->formatDate($From, self::DT_FORMAT_DATE_TIME_TZ);
         $to   = $this->formatDate($To, self::DT_FORMAT_DATE_TIME_TZ);
-        $uri = 'api/client/statistics/all_sku_promo/orders/generate/json' . 
-            '?timeBounds[from]=' . $from . 
-            '&timeBounds[to]=' . $to;
-        
-        $response = $this->getResponse($uri);
-        
-        return (new OzonData($response))->data;
+        $params = [
+            'timeBounds.from' => $from,
+            'timeBounds.to'   => $to,
+        ];
+        return (new OzonData($this->getResponse(
+            'api/client/statistics/all_sku_promo/orders/generate/json',
+            $params
+        )))->data;
     }
 
     public function getPromoOrdersReport(string $url, string $UUID)
